@@ -130,6 +130,101 @@ def __zernikepolar__(coefficient,r,u):
 	return Z
 
 
+def __zernikepolypolar__(i,r,u):
+	"""
+	------------------------------------------------
+	__zernikepolypolar__(coefficient,r,u):
+
+	Return specifip zernike polynomial
+
+	Zernike Polynomials Caculation in polar coordinates
+
+	i: Zernike Polynomials requested
+	r: rho in polar coordinates
+	u: theta in polar coordinates
+
+	------------------------------------------------
+	"""
+	if i==1:
+		Z  = 1*(__cos__(u)**2+__sin__(u)**2)
+	elif i==2:
+		Z  = 2*r*__cos__(u)
+	elif i==3:
+		Z  =  2*r*__sin__(u)
+	elif i==4:
+		Z  =  __sqrt__(3)*(2*r**2-1)
+	elif i==5:
+		Z  =   __sqrt__(6)*r**2*__sin__(2*u)
+	elif i==6:
+		Z  =  __sqrt__(6)*r**2*__cos__(2*u)
+	elif i==7:
+		Z  =  __sqrt__(8)*(3*r**2-2)*r*__sin__(u)
+	elif i==8:
+		Z  =  __sqrt__(8)*(3*r**2-2)*r*__cos__(u)
+	elif i==9:
+		Z  =  __sqrt__(8)*r**3*__sin__(3*u)
+	elif i==10:
+		Z =  __sqrt__(8)*r**3*__cos__(3*u)
+	elif i==11:
+		Z =  __sqrt__(5)*(1-6*r**2+6*r**4)
+	elif i==12:
+		Z =  __sqrt__(10)*(4*r**2-3)*r**2*__cos__(2*u)
+	elif i==13:
+		Z =  __sqrt__(10)*(4*r**2-3)*r**2*__sin__(2*u)
+	elif i==14:
+		Z =  __sqrt__(10)*r**4*__cos__(4*u)
+	elif i==15:
+		Z =  __sqrt__(10)*r**4*__sin__(4*u)
+	elif i==16:
+		Z =  __sqrt__(12)*(10*r**4-12*r**2+3)*r*__cos__(u)
+	elif i==17:
+		Z =  __sqrt__(12)*(10*r**4-12*r**2+3)*r*__sin__(u)
+	elif i==18:
+		Z =  __sqrt__(12)*(5*r**2-4)*r**3*__cos__(3*u)
+	elif i==19:
+		Z =  __sqrt__(12)*(5*r**2-4)*r**3*__sin__(3*u)
+	elif i==20:
+		Z =  __sqrt__(12)*r**5*__cos__(5*u)
+	elif i==21:
+		Z =  __sqrt__(12)*r**5*__sin__(5*u)
+	elif i==22:
+		Z =  __sqrt__(7)*(20*r**6-30*r**4+12*r**2-1)
+	elif i==23:
+		Z =  __sqrt__(14)*(15*r**4-20*r**2+6)*r**2*__sin__(2*u)
+	elif i==24:
+		Z =  __sqrt__(14)*(15*r**4-20*r**2+6)*r**2*__cos__(2*u)
+	elif i==25:
+		Z =  __sqrt__(14)*(6*r**2-5)*r**4*__sin__(4*u)
+	elif i==26:
+		Z =  __sqrt__(14)*(6*r**2-5)*r**4*__cos__(4*u)
+	elif i==27:
+		Z =  __sqrt__(14)*r**6*__sin__(6*u)
+	elif i==28:
+		Z =  __sqrt__(14)*r**6*__cos__(6*u)
+	elif i==29:
+		Z =  4*(35*r**6-60*r**4+30*r**2-4)*r*__sin__(u)
+	elif i==30:
+		Z =  4*(35*r**6-60*r**4+30*r**2-4)*r*__cos__(u)
+	elif i==31:
+		Z =  4*(21*r**4-30*r**2+10)*r**3*__sin__(3*u)
+	elif i==32:
+		Z =  4*(21*r**4-30*r**2+10)*r**3*__cos__(3*u)
+	elif i==33:
+		Z =  4*(7*r**2-6)*r**5*__sin__(5*u)
+	elif i==34:
+		Z =  4*(7*r**2-6)*r**5*__cos__(5*u)
+	elif i==35:
+		Z =  4*r**7*__sin__(7*u)
+	elif i==36:
+		Z =  4*r**7*__cos__(7*u)
+	elif i==37:
+		Z =  3*(70*r**8-140*r**6+90*r**4-20*r**2+1)
+	else:
+		raise ValueError("Invalid index {}".format(i))
+
+	return Z
+
+
 def twyman_green(coefficients, lambda_1 = 632, PR = 1):
 	"""
 	Genertate Twyman_Green Interferogram based on zernike polynomials

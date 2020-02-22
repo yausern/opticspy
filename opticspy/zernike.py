@@ -5,6 +5,7 @@ from numpy import cos as __cos__
 from numpy import sin as __sin__
 from numpy import sqrt as __sqrt__
 from numpy import arctan2 as __arctan2__
+from numpy import nansum as __nansum__
 import math
 import matplotlib.pyplot as __plt__
 from matplotlib import cm as __cm__
@@ -435,23 +436,36 @@ def fitting(Z,n,remain3D=False,remain2D=False,barchart=False,interferogram=False
 	r = __np__.sqrt(X2**2 + Y2**2)
 	u = __np__.arctan2(Y2, X2)
 	for i in range(n):
-		C = [0]*i+[1]+[0]*(37-i-1)
-		ZF = __interferometer__.__zernikepolar__(C,r,u)
+		#C = [0]*i+[1]+[0]*(37-i-1)
+		#ZF = __interferometer__.__zernikepolypolar__(C,r,u)
+		ZF = __interferometer__.__zernikepolypolar__(i+1,r,u)
+
+		mask = (r<1)
+		ZF = ZF*mask
+		'''
 		for i in range(l):
 			for j in range(l):
 				if x2[i]**2+y2[j]**2>1:
 					ZF[i][j]=0
-		a = sum(sum(Z*ZF))*2*2/l/l/__np__.pi
-		fitlist.append(round(a,3))
+		'''
+		#a = __nansum__(__nansum__(Z*ZF))*2*2/l/l/__np__.pi
+		Nnan = __np__.sum(__np__.isnan(Z)*mask)
+		a = __nansum__(__nansum__(Z*ZF))*2*2/(l*l-Nnan)/__np__.pi
+		fitlist.append(round(a,6))
 
 
 	l1 = len(fitlist)
 	fitlist = fitlist+[0]*(37-l1)
 	Z_new = Z - __interferometer__.__zernikepolar__(fitlist,r,u)
+	mask = (r<1)
+	Z_new = Z_new*mask
+
+	'''
 	for i in range(l):
 		for j in range(l):
 			if x2[i]**2+y2[j]**2>1:
 				Z_new[i][j]=0
+	'''
 
 	#plot bar chart of zernike
 	if barchart == True:
