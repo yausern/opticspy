@@ -435,10 +435,14 @@ def fitting(Z,n,remain3D=False,remain2D=False,barchart=False,interferogram=False
 	[X2,Y2] = __np__.meshgrid(x2,y2)
 	r = __np__.sqrt(X2**2 + Y2**2)
 	u = __np__.arctan2(Y2, X2)
+
+	Zpoly = __interferometer__.__zernikepolypolar__()
 	for i in range(n):
 		#C = [0]*i+[1]+[0]*(37-i-1)
-		#ZF = __interferometer__.__zernikepolypolar__(C,r,u)
-		ZF = __interferometer__.__zernikepolypolar__(i+1,r,u)
+		#ZF = __interferometer__.__zernikepolar__(C,r,u)
+		#ZF = __interferometer__.__zernikepolypolar__(i+1,r,u)
+		ZF = Zpoly.Z(i+1,r,u)
+		
 
 		mask = (r<1)
 		ZF = ZF*mask

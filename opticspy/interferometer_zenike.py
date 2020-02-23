@@ -129,7 +129,110 @@ def __zernikepolar__(coefficient,r,u):
 		Z30+ Z31+ Z32+ Z33+ Z34+ Z35+ Z36+ Z37
 	return Z
 
+class __zernikepolypolar__:
+	"""
+	------------------------------------------------
+	__zernikepolypolar__:
 
+	Switcher class to return specific zernike polynomial
+
+	Zernike Polynomials Calculation in polar coordinates
+
+	idx: Zernike Polynomial requested
+	r: rho in polar coordinates
+	u: theta in polar coordinates
+
+	------------------------------------------------
+	"""
+	def __init__(self):
+		ind = range(1,38)
+		funname = ["Z{}".format(i) for i in ind]
+		self.switcher = dict(zip(ind, funname))
+
+	def Z(self,idx,r,u):
+		try:
+			method_name = self.switcher[idx]
+		except KeyError:
+			raise KeyError("Invalid Zernike index")
+		method=getattr(self,method_name, None)
+		return method(r,u)
+
+	def Z1(self,r,u):
+		return 1*(__cos__(u)**2+__sin__(u)**2)
+	def Z2(self,r,u):
+		return 2*r*__cos__(u)
+	def Z3(self,r,u):
+		return 2*r*__sin__(u)
+	def Z4(self,r,u):
+		return __sqrt__(3)*(2*r**2-1)
+	def Z5(self,r,u):
+		return  __sqrt__(6)*r**2*__sin__(2*u)
+	def Z6(self,r,u):
+		return __sqrt__(6)*r**2*__cos__(2*u)
+	def Z7(self,r,u):
+		return __sqrt__(8)*(3*r**2-2)*r*__sin__(u)
+	def Z8(self,r,u):
+		return __sqrt__(8)*(3*r**2-2)*r*__cos__(u)
+	def Z9(self,r,u):
+		return __sqrt__(8)*r**3*__sin__(3*u)
+	def Z10(self,r,u):
+		return __sqrt__(8)*r**3*__cos__(3*u)
+	def Z11(self,r,u):
+		return __sqrt__(5)*(1-6*r**2+6*r**4)
+	def Z12(self,r,u):
+		return __sqrt__(10)*(4*r**2-3)*r**2*__cos__(2*u)
+	def Z13(self,r,u):
+		return __sqrt__(10)*(4*r**2-3)*r**2*__sin__(2*u)
+	def Z14(self,r,u):
+		return __sqrt__(10)*r**4*__cos__(4*u)
+	def Z15(self,r,u):
+		return __sqrt__(10)*r**4*__sin__(4*u)
+	def Z16(self,r,u):
+		return __sqrt__(12)*(10*r**4-12*r**2+3)*r*__cos__(u)
+	def Z17(self,r,u):
+		return __sqrt__(12)*(10*r**4-12*r**2+3)*r*__sin__(u)
+	def Z18(self,r,u):
+		return __sqrt__(12)*(5*r**2-4)*r**3*__cos__(3*u)
+	def Z19(self,r,u):
+		return __sqrt__(12)*(5*r**2-4)*r**3*__sin__(3*u)
+	def Z20(self,r,u):
+		return __sqrt__(12)*r**5*__cos__(5*u)
+	def Z21(self,r,u):
+		return __sqrt__(12)*r**5*__sin__(5*u)
+	def Z22(self,r,u):
+		return __sqrt__(7)*(20*r**6-30*r**4+12*r**2-1)
+	def Z23(self,r,u):
+		return __sqrt__(14)*(15*r**4-20*r**2+6)*r**2*__sin__(2*u)
+	def Z24(self,r,u):
+		return __sqrt__(14)*(15*r**4-20*r**2+6)*r**2*__cos__(2*u)
+	def Z25(self,r,u):
+		return __sqrt__(14)*(6*r**2-5)*r**4*__sin__(4*u)
+	def Z26(self,r,u):
+		return __sqrt__(14)*(6*r**2-5)*r**4*__cos__(4*u)
+	def Z27(self,r,u):
+		return __sqrt__(14)*r**6*__sin__(6*u)
+	def Z28(self,r,u):
+		return __sqrt__(14)*r**6*__cos__(6*u)
+	def Z29(self,r,u):
+		return 4*(35*r**6-60*r**4+30*r**2-4)*r*__sin__(u)
+	def Z30(self,r,u):
+		return 4*(35*r**6-60*r**4+30*r**2-4)*r*__cos__(u)
+	def Z31(self,r,u):
+		return 4*(21*r**4-30*r**2+10)*r**3*__sin__(3*u)
+	def Z32(self,r,u):
+		return 4*(21*r**4-30*r**2+10)*r**3*__cos__(3*u)
+	def Z33(self,r,u):
+		return 4*(7*r**2-6)*r**5*__sin__(5*u)
+	def Z34(self,r,u):
+		return 4*(7*r**2-6)*r**5*__cos__(5*u)
+	def Z35(self,r,u):
+		return 4*r**7*__sin__(7*u)
+	def Z36(self,r,u):
+		return 4*r**7*__cos__(7*u)
+	def Z37(self,r,u):
+		return 3*(70*r**8-140*r**6+90*r**4-20*r**2+1)
+
+'''
 def __zernikepolypolar__(i,r,u):
 	"""
 	------------------------------------------------
@@ -223,7 +326,7 @@ def __zernikepolypolar__(i,r,u):
 		raise ValueError("Invalid index {}".format(i))
 
 	return Z
-
+'''
 
 def twyman_green(coefficients, lambda_1 = 632, PR = 1):
 	"""
